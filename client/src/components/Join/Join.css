@@ -1,0 +1,37 @@
+.joinOuterContainer {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url('/joinchat.jpeg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.joinInnerContainer {
+  background-color: #ffffff;
+  width: 500px;
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #80808054;
+  border-radius: 5%;
+  padding: 40px;
+  box-shadow: 0 0 30px 6px #0092ff47
+}
+
+.joinInnerContainer form {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.joinInnerContainer form .form-group {
+  width: 90%;
+}

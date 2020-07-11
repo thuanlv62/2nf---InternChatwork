@@ -26,21 +26,27 @@ app.set("views", "./views");
 //favicon
 app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 
+
 //socket.io
-const port = process.env.PORT || 8080;
-const server = require("http").Server(app);
+// const port = process.env.PORT || 5000;
+// const server = require("http").createServer(app);
 
-const io = require("socket.io")(server);
-io.on("connection", function (socket) {
-    console.log("Socket connected: " + socket.id);
-    socket.on("disconnect", function () {
-        console.log("Socket disconnected: " + socket.id);
-    })
-});
+// const io = require("socket.io")(server);
 
+// io.on("connection", function (socket) {
+//     console.log("Socket connected: " + socket.id);
+//     socket.on("disconnect", function () {
+//         console.log("Socket disconnected: " + socket.id);
+//     })
+// });
 
-// app.use("/api", apiRouter);
-// app.use("/", webRouter);
+//route files
+const apiRouter = require("./routes/api/api-routes");
+const webRouter = require("./routes/web/web-routes");
+const { listen } = require('socket.io');
+
+app.use("/api", apiRouter);
+app.use("/", webRouter);
 
 
 
@@ -50,5 +56,15 @@ io.on("connection", function (socket) {
 app.get('/', (req, res) => {
   res.json('hello');
 });
+const port = process.env.PORT || 5000;
+const server = app.listen(port, () => console.log(`Listening on http://localhost:${port}/`));
 
-app.listen(port, () => console.log(`Listening on http://localhost:${port}/`));
+
+const io = require("socket.io").listen(server);
+
+io.on("connection", function (socket) {
+    console.log("Socket connected: " + socket.id);
+    socket.on("disconnect", function () {
+        console.log("Socket disconnected: " + socket.id);
+    })
+});
